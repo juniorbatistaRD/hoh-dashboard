@@ -7,6 +7,7 @@ import { Routes, Route } from "react-router-dom";
 import Dashboard from "../pages/Dashboard";
 import styles from "./index.module.css";
 import TeamsPage from "../pages/TeamsPage";
+import CommunityPage from "../pages/CommunityPage";
 const Main = () => {
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ const Main = () => {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/teams/*" element={<TeamsPage />} />
+          <Route path="/communities/*" element={<CommunityPage />} />
         </Routes>
       </div>
     </div>
