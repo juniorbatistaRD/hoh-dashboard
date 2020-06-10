@@ -1,18 +1,19 @@
-import React, { useContext, useEffect } from "react";
-import { AuthContext } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
-import SideBar from "../../components/common/SideBar";
-import styles from "./index.module.css";
-import { Grid, Segment, Container, Header, Icon } from "semantic-ui-react";
-import Main from "../../layout/Main";
+import React from "react";
+import { Container, Header, Icon } from "semantic-ui-react";
+import CommunityMap from "../../components/common/CommunityMap";
+import HousesByMonth from "../../components/stats/HousesByMonth";
 
 const Dashboard = () => {
   return (
     <Container>
       <Header as="h2">
         <Icon name="home" />
-        <Header.Content>Houses</Header.Content>
+        <Header.Content>Stats</Header.Content>
       </Header>
+      <HousesByMonth />
+      <Header>Communities</Header>
+
+      <CommunityMap />
     </Container>
   );
 };

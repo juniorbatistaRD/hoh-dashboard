@@ -8,22 +8,21 @@ import {
   Button,
   Header,
 } from "semantic-ui-react";
-import { getTeamsPagination, deleteTeam } from "../../../data/teams";
+import { getHousesPagination, deleteHouse } from "../../../data/house";
 import { useNavigate } from "react-router-dom";
 import swal from "@sweetalert/with-react";
 
-const ShowTeams = () => {
-  const [teams, setTeams] = useState([]);
-  const [items, setItems] = useState(0);
+const ShowCommunity = () => {
+  const [items, setItems] = useState([]);
+  const [itemsAmount, setItemsAmount] = useState(0);
   const [startFrom, setStartFrom] = useState(0);
   const navigate = useNavigate();
-
   const perPage = 10;
 
   useEffect(() => {
-    getTeamsPagination({ startFrom, perPage }).then((data) => {
-      setTeams(data.results);
-      setItems(data.count);
+    getHousesPagination({ startFrom, perPage }).then((data) => {
+      setItems(data.results);
+      setItemsAmount(data.count);
     });
   }, [perPage, startFrom]);
 
@@ -34,12 +33,12 @@ const ShowTeams = () => {
   };
 
   const goForward = () => {
-    if (startFrom + perPage < items) {
+    if (startFrom + perPage < itemsAmount) {
       setStartFrom((prev) => prev + 10);
     }
   };
 
-  const onDelete = (teamId) => {
+  const onDelete = (id) => {
     swal({
       title: "Are you sure?",
       text: "Once deleted, you will not be able to recover !",
@@ -48,8 +47,8 @@ const ShowTeams = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        deleteTeam(teamId).then(() =>
-          swal("The team has been deleted!" + willDelete, {
+        deleteHouse(id).then(() =>
+          swal("The item has been deleted!" + willDelete, {
             icon: "success",
           })
         );
@@ -59,31 +58,42 @@ const ShowTeams = () => {
 
   return (
     <Container>
-      <Button primary onClick={() => navigate("addteam")}>
-        Add Team
+      <Button primary onClick={() => navigate("add")}>
+        Add House
       </Button>
       <Table celled>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell>Name</Table.HeaderCell>
-            <Table.HeaderCell>Place</Table.HeaderCell>
+            <Table.HeaderCell>Applicant Name</Table.HeaderCell>
+            <Table.HeaderCell>Total Income</Table.HeaderCell>
+            <Table.HeaderCell>Children Name and Age</Table.HeaderCell>
             <Table.HeaderCell>Actions</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
         <Table.Body>
-          {teams.map((team) => (
-            <Table.Row>
+          {items.map((item) => (
+            <Table.Row key={item.id}>
               <Table.Cell>
-                <Header sub>{team.attributes.name}</Header>
+                <Header sub>{item.attributes.applicantName}</Header>
               </Table.Cell>
-              <Table.Cell>{team.attributes.placeIsFrom}</Table.Cell>
               <Table.Cell>
-                <Label as="a" onClick={() => onDelete(team.id)}>
+                <Header sub>{item.attributes.totalIncome}</Header>
+              </Table.Cell>
+              <Table.Cell>
+                <Header sub>{item.attributes.childrenNameAndAge}</Header>
+              </Table.Cell>
+
+              <Table.Cell>
+                <Label as="a" onClick={() => navigate("show/" + item.id)}>
+                  See All Information
+                  <Icon name="eye" />
+                </Label>
+                <Label as="a" onClick={() => onDelete(item.id)}>
                   Delete
                   <Icon name="trash" color="red" />
                 </Label>
-                <Label as="a" onClick={() => navigate("edit/" + team.id)}>
+                <Label as="a" onClick={() => navigate("edit/" + item.id)}>
                   Edit
                   <Icon name="edit" />
                 </Label>
@@ -94,7 +104,7 @@ const ShowTeams = () => {
 
         <Table.Footer>
           <Table.Row>
-            <Table.HeaderCell colSpan="3">
+            <Table.HeaderCell colSpan="7">
               <Menu floated="right" pagination>
                 <Menu.Item
                   as="a"
@@ -109,7 +119,7 @@ const ShowTeams = () => {
                   as="a"
                   icon
                   onClick={goForward}
-                  disabled={startFrom + perPage > items}
+                  disabled={startFrom + perPage > itemsAmount}
                 >
                   <Icon name="chevron right" />
                 </Menu.Item>
@@ -122,4 +132,4 @@ const ShowTeams = () => {
   );
 };
 
-export default ShowTeams;
+export default ShowCommunity;

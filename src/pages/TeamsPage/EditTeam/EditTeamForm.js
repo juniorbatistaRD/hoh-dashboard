@@ -57,16 +57,7 @@ const EditTeamForm = ({ team }) => {
               </Header>
               <TextField name="name" placeholder="Team's Name" />
               <ErrorMessage name="name" />
-              <Header sub textAlign="left">
-                Team's Leader
-              </Header>
-              <TextField name="leader" placeholder="Team's Leader" />
-              <ErrorMessage name="leader" />
-              <Header sub textAlign="left">
-                Team's Members
-              </Header>
-              <TextField name="teamMembers" placeholder="Teams Number" />
-              <ErrorMessage name="teamMembers" />
+
               <Header sub textAlign="left">
                 Place
               </Header>

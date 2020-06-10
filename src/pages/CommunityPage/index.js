@@ -1,11 +1,10 @@
-import React, { useContext, useEffect } from "react";
-import { AuthContext } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Container, Header, Icon } from "semantic-ui-react";
 import ShowCommunity from "./ShowCommunity";
 import AddCommunity from "./AddCommunity";
 import EditCommunity from "./EditCommunity";
+import ShowOneCommunity from "./ShowOneCommunity";
 
 const CommunityPage = () => {
   return (
@@ -17,6 +16,7 @@ const CommunityPage = () => {
       <Routes>
         <Route path="/" element={<ShowCommunity />} />
         <Route path="add" element={<AddCommunity />} />
+        <Route path="show/:id" element={<ShowOneCommunity />} />
         <Route path="edit/:community" element={<EditCommunity />} />
       </Routes>
     </Container>

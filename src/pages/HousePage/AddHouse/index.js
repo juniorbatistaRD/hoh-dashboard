@@ -1,13 +1,12 @@
 import React from "react";
-// import styles from "./index.module.css";
 import { Container } from "semantic-ui-react";
-import AddTeamForm from "./AddTeamForm";
+import AddHouseForm from "./AddHouseForm";
 
 const AddTeam = () => {
   return (
     <Container>
       <Container style={{ marginTop: 20 }}>
-        <AddTeamForm />
+        <AddHouseForm />
       </Container>
     </Container>
   );

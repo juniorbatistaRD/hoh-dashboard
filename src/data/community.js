@@ -1,25 +1,19 @@
 import Parse from "parse";
-
+import uploadFilesToParse from "../helpers/uploadFileToParse";
 const Community = Parse.Object.extend("Community");
 const query = new Parse.Query(Community);
 
-export const saveCommunity = ({
-  name,
-  hasPoliceStation,
-  hasClinic,
-  hasSchool,
-  hasChurch,
-  hasGroceryStore,
-}) => {
+export const saveCommunity = async (values) => {
   const community = new Community();
-  community.set("name", name);
-  community.set("hasPoliceStation", hasPoliceStation);
-  community.set("hasClinic", hasClinic);
-  community.set("hasSchool", hasSchool);
-  community.set("hasChurch", hasChurch);
-  community.set("hasGroceryStore", hasGroceryStore);
+  const pictures = await uploadFilesToParse(values.pictures);
+  return community.save({ ...values, pictures });
+};
 
-  return community.save();
+export const getAllCommunities = async () => {
+  const query = new Parse.Query(Community);
+  const result = await query.find();
+
+  return result;
 };
 
 export const getCommunittiesPagination = async ({ startFrom, perPage }) => {
@@ -52,24 +46,16 @@ export const getCommunityById = async (id) => {
   return result;
 };
 
-export const updateCommunityById = async ({
-  id,
-  name,
-  hasPoliceStation,
-  hasClinic,
-  hasSchool,
-  hasChurch,
-  hasGroceryStore,
-}) => {
+export const updateCommunityById = async ({ id, ...values }) => {
   const community = await getCommunityById(id);
-  community.set("name", name);
-  community.set("hasPoliceStation", hasPoliceStation);
-  community.set("hasClinic", hasClinic);
-  community.set("hasSchool", hasSchool);
-  community.set("hasChurch", hasChurch);
-  community.set("hasGroceryStore", hasGroceryStore);
 
-  return community.save();
+  const pictures = await uploadFilesToParse(values.pictures);
+  console.log(pictures);
+
+  return community.save({
+    ...values,
+    pictures: pictures ? pictures : undefined,
+  });
 };
 
 export default query;

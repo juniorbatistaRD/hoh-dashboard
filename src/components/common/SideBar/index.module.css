@@ -1,6 +1,8 @@
 .container {
   display: flex;
   flex-direction: column;
-  flex: 3;
   background-color: rgb(48, 48, 48);
+  position: sticky;
+  top: 0;
+  height: 100vh;
 }

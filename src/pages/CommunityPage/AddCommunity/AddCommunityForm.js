@@ -10,6 +10,7 @@ import * as Yup from "yup";
 import { saveCommunity } from "../../../data/community";
 import swal from "@sweetalert/with-react";
 import { useNavigate } from "react-router-dom";
+import MultiFilesField from "../../../components/formikFields/MultiFilesField";
 
 const AddCommunityForm = () => {
   const navigate = useNavigate();
@@ -23,6 +24,10 @@ const AddCommunityForm = () => {
           hasSchool: false,
           hasChurch: false,
           hasGroceryStore: false,
+          about: "",
+          pictures: [],
+          lat: "",
+          lng: "",
         }}
         validationSchema={Yup.object({
           name: Yup.string().min(2).max(100).required(),
@@ -62,6 +67,27 @@ const AddCommunityForm = () => {
               <span>Has A Grocery Store?</span>
               <CheckBox name="hasGroceryStore" />
             </Header>
+            <Header sub textAlign="left">
+              <span>About the Communitty</span>
+            </Header>
+            <Header sub textAlign="left">
+              <span>Latitude</span>
+            </Header>
+            <TextField name="lat" />
+            <Header sub textAlign="left">
+              <span>Longitud</span>
+            </Header>
+            <TextField name="lng" />
+
+            <Header sub textAlign="left">
+              Pictures Of Ownership Proof
+            </Header>
+            <MultiFilesField
+              name="pictures"
+              multiple
+              accept="image/*"
+              setFieldValue={props.setFieldValue}
+            />
 
             <Button
               primary

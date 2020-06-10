@@ -17,10 +17,11 @@ import swal from "@sweetalert/with-react";
 
 const ShowCommunity = () => {
   const [items, setItems] = useState([]);
-  const [perPage, setPerPage] = useState(10);
   const [itemsAmount, setItemsAmount] = useState(0);
   const [startFrom, setStartFrom] = useState(0);
   const navigate = useNavigate();
+
+  const perPage = 10;
 
   useEffect(() => {
     getCommunittiesPagination({ startFrom, perPage }).then((data) => {
@@ -83,23 +84,57 @@ const ShowCommunity = () => {
               <Table.Cell>
                 <Header sub>{community.attributes.name}</Header>
               </Table.Cell>
-              <Table.Cell>
+              <Table.Cell
+                style={{
+                  backgroundColor: community.attributes.hasPoliceStation
+                    ? "green"
+                    : "red",
+                }}
+              >
                 {community.attributes.hasPoliceStation ? "Yes" : "No"}
               </Table.Cell>
-              <Table.Cell>
+              <Table.Cell
+                style={{
+                  backgroundColor: community.attributes.hasClinic
+                    ? "green"
+                    : "red",
+                }}
+              >
                 {community.attributes.hasClinic ? "Yes" : "No"}
               </Table.Cell>
-              <Table.Cell>
+              <Table.Cell
+                style={{
+                  backgroundColor: community.attributes.hasSchool
+                    ? "green"
+                    : "red",
+                }}
+              >
                 {community.attributes.hasSchool ? "Yes" : "No"}
               </Table.Cell>
-              <Table.Cell>
+              <Table.Cell
+                style={{
+                  backgroundColor: community.attributes.hasChurch
+                    ? "green"
+                    : "red",
+                }}
+              >
                 {community.attributes.hasChurch ? "Yes" : "No"}
               </Table.Cell>
-              <Table.Cell>
+              <Table.Cell
+                style={{
+                  backgroundColor: community.attributes.hasGroceryStore
+                    ? "green"
+                    : "red",
+                }}
+              >
                 {community.attributes.hasGroceryStore ? "Yes" : "No"}
               </Table.Cell>
 
               <Table.Cell>
+                <Label as="a" onClick={() => navigate("show/" + community.id)}>
+                  See All Information
+                  <Icon name="eye" />
+                </Label>
                 <Label as="a" onClick={() => onDelete(community.id)}>
                   Delete
                   <Icon name="trash" color="red" />

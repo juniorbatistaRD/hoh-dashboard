@@ -1,11 +1,6 @@
-import React, { useContext, useEffect } from "react";
-import { AuthContext } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
-import SideBar from "../../components/common/SideBar";
-import styles from "./index.module.css";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { Grid, Segment, Container, Header, Icon } from "semantic-ui-react";
-import Main from "../../layout/Main";
+import { Container, Header, Icon } from "semantic-ui-react";
 import AddTeam from "./AddTeam";
 import ShowTeams from "./ShowTeams";
 import EditTeam from "./EditTeam";

@@ -1,5 +1,6 @@
 import React from "react";
 import { useField } from "formik";
+
 import styles from "./index.module.css";
 
 function TextArea({ width, padding, className, ...props }) {
@@ -12,7 +13,7 @@ function TextArea({ width, padding, className, ...props }) {
       className={classNames}
       style={{
         width,
-        padding
+        padding,
       }}
       {...field}
       {...props}
@@ -22,7 +23,7 @@ function TextArea({ width, padding, className, ...props }) {
 
 TextArea.defaultProps = {
   padding: "15px",
-  className: " "
+  className: " ",
 };
 
 export default TextArea;
